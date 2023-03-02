@@ -10,15 +10,21 @@ import frc.robot.commands.auto.AutonomousCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
+import edu.wpi.first.cameraserver.CameraServer;
+//import edu.wpi.cscore.CvSink;
+//import edu.wpi.cscore.CvSource;
+
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
 
   final LimelightSubsystem limeLight = new LimelightSubsystem();
   final PneumaticsSubsytem pneumatics = new PneumaticsSubsytem();
@@ -34,45 +40,49 @@ public class RobotContainer {
   final ToggleBucketCommand toggleBucket = new ToggleBucketCommand(m_bucketSubsystem);
   final IntakeToggleCommand toggleIntake = new IntakeToggleCommand(m_intakeSubsystem);
 
-  final AutonomousCommand m_autoCommand = new AutonomousCommand(m_driveSubsystem, m_intakeSubsystem,m_bucketSubsystem);
+  final AutonomousCommand m_autoCommand = new AutonomousCommand(m_driveSubsystem, m_intakeSubsystem, m_bucketSubsystem);
 
   final CommandXboxController movementJoystick = new CommandXboxController(Constants.MOVEMENT_JOYSTICK);
   final CommandXboxController manipulatorJoystick = new CommandXboxController(Constants.MANIPULATOR_JOYSTICK);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    
+
     m_driveSubsystem.setDefaultCommand(
-      new ArcadeDrive(
+        new ArcadeDrive(
             m_driveSubsystem,
             -((-movementJoystick.getLeftTriggerAxis() + movementJoystick.getRightTriggerAxis())),
-            (movementJoystick.getLeftX() )
-      ));
-
+            (movementJoystick.getLeftX())));
 
     limeLight.setDefaultCommand(limelightCommand);
+
+    // Creates UsbCamera and MjpegServer [1] and connects them
+    CameraServer.startAutomaticCapture();
 
     gyro.log();
   }
 
   private void configureButtonBindings() {
-    manipulatorJoystick.leftBumper() //intake
-    .whileTrue(runIntake);
+    manipulatorJoystick.leftBumper() // intake
+        .whileTrue(runIntake);
 
-    manipulatorJoystick.rightBumper()//outake
-    .whileTrue(runIntakeBackward);
+    manipulatorJoystick.rightBumper()// outake
+        .whileTrue(runIntakeBackward);
 
     manipulatorJoystick.x()
-    .onTrue(toggleBucket);
+        .onTrue(toggleBucket);
 
     manipulatorJoystick.a()
-    .onTrue(toggleIntake);
+        .onTrue(toggleIntake);
 
     manipulatorJoystick.y()
-    .onTrue(toggleCompressor);
+        .onTrue(toggleCompressor);
   }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
