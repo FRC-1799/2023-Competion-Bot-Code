@@ -26,14 +26,16 @@ public final class Constants {
         // r: rear
 
         // left
-        public static final int lf = 3;
-        public static final int lt = 4;
-        public static final int lr = 9;
 
+
+        public static final int lf = 12;
+        public static final int lt = 14;
+        public static final int lr = 13;
+      
         // right
-        public static final int rf = 7;
-        public static final int rt = 5;
-        public static final int rr = 8;
+        public static final int rf = 17;
+        public static final int rt = 15;
+        public static final int rr = 16;
         
         public static final double rotationSpeedRatio= 0.6;
         public static final double driveSpeedRatio= 0.6;
@@ -55,8 +57,8 @@ public final class Constants {
             public static final int revPort = 3;
 
         }
-        public static final int motor1 = 2;
-        public static final int motor2 = 6;
+        public static final int motor1 = 11;
+        public static final int motor2 = 18;
 
         public static final double fwdSpeed = 0.4;
         public static final double revSpeed = -0.4;
