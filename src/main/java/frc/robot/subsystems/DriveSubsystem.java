@@ -72,6 +72,16 @@ public class DriveSubsystem extends SubsystemBase {
     return (getAveragePositionLeft() + getAveragePositionRight()) /2;
   }
 
+  public void resetEncoders(){
+    for(RelativeEncoder e : leftEncoders){
+      e.setPosition(0);
+    }
+    for(RelativeEncoder e : rightEncoders){
+      e.setPosition(0);
+    }
+  }
+
+
   public void drive(final double ySpeed, final double rotateValue) {
     m_RobotDrive.arcadeDrive(ySpeed, rotateValue);
   }
