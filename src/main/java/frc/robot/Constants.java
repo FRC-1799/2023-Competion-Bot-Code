@@ -38,6 +38,28 @@ public final class Constants {
         public static double rotationSpeedRatio= 0.6;
         public static final double driveSpeedRatio= 1;
 
+
+        public static final class driveForwardsPID{
+            public static final double kP = 0.0;
+            public static final double kI = 0.0;
+            public static final double kD = 0.0;
+            public static final double kF = 0.0;
+            public static final double outputMin = -1;
+            public static final double outputMax = 1;
+
+
+            public static final double positionTolerance = 1;
+            public static final double velocityTolerance = 1;
+
+        }
+        public static final class rotateToPID{
+            public static final double kP = 0.0;
+            public static final double kI = 0.0;
+            public static final double kD = 0.0;
+            public static final double kF = 0.0;
+            public static final double outputMin = -1;
+            public static final double outputMax = 1;
+        }
         
     }
 
