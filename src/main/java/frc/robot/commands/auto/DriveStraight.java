@@ -8,6 +8,8 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveStraight extends RunCommand {
 
+  private final DriveSubsystem drive;
+
   static PIDController controller = new PIDController(
     Constants.drive.driveForwardsPID.kP,
     Constants.drive.driveForwardsPID.kI,
@@ -26,6 +28,7 @@ public class DriveStraight extends RunCommand {
           ,0);
       }
     );
+    this.drive = driveSubsystem;
     
     controller.setSetpoint(distance);
     controller.setTolerance(
@@ -33,6 +36,10 @@ public class DriveStraight extends RunCommand {
       Constants.drive.driveForwardsPID.velocityTolerance
     );
     addRequirements(driveSubsystem);
+  }
+
+  public void initialize() {
+    drive.resetEncoders();
   }
 
   public boolean isFinished() {
