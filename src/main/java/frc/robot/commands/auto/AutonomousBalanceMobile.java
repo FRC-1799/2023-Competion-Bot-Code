@@ -16,9 +16,6 @@ import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-
-
-
 public class AutonomousBalanceMobile extends SequentialCommandGroup {
   /** Creates a new AutonomousCommand. */
   DriveSubsystem drive;
@@ -62,9 +59,9 @@ public class AutonomousBalanceMobile extends SequentialCommandGroup {
          this.bucket
        ),
        new WaitCommand(1),
-      new DriveStraight(drive, 2.7,Constants.auto.fwdSpeed),
+      new DriveStraight(drive,Constants.auto.balanceWithMoible.fwdDistance),
       new WaitCommand(1),
-      new DriveStraight(drive, 3,Constants.auto.revSpeed),
+      new DriveStraight(drive, Constants.auto.balanceWithMoible.revDistance),
       new Balance(drive, gyro)
     );
   }

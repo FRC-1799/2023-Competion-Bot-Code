@@ -33,7 +33,6 @@ public class AutonomousBalanceNoMobile extends SequentialCommandGroup {
    * 
    * robot drives forward, getting more auto points
    * 
-   * 
    */
 
    // Subsystem to Dump Cargo then go forward over charge station
@@ -60,7 +59,7 @@ public class AutonomousBalanceNoMobile extends SequentialCommandGroup {
          this.bucket
        ),
        new WaitCommand(1),
-      new DriveStraight(drive, 2,Constants.auto.fwdSpeed),
+      new DriveStraight(drive,Constants.auto.balanceNoMoible.fwdDistance),
       new Balance(drive, gyro)
     );
   }
