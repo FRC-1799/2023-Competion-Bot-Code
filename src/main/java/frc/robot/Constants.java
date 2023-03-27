@@ -87,8 +87,22 @@ public final class Constants {
     }
 
     public static final class auto{
-        public static final double fwdSpeed = -0.6;
-        public static final double revSpeed = 0.4;
+
+        public static final class grab{
+            public static final double fwdDistance = 15;
+            public static final double revDistance = -5;
+        }
+
+        public static final class balanceNoMoible{
+            public static final double fwdDistance  = 5;
+        }
+
+        public static final class balanceWithMoible{
+            public static final double fwdDistance  = 10;
+            public static final double revDistance  = -5;
+        }
+
+        
     }
 
     public static final int MOVEMENT_JOYSTICK = 0;
