@@ -2,13 +2,10 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gyro extends SubsystemBase{
-  
-  // private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
   private final AHRS gyro = new AHRS();
 
