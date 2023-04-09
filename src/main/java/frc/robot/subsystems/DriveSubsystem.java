@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -43,7 +44,6 @@ public class DriveSubsystem extends SubsystemBase {
     new MotorControllerGroup(rightMotors)
   );
 
-
   private final AHRS gyro = new AHRS();
 
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
@@ -54,6 +54,18 @@ public class DriveSubsystem extends SubsystemBase {
     gyro.getRotation2d(), 
     getLeftDistance(),
     getRightDistance()
+  );
+
+  public final PIDController leftPID = new PIDController(
+    Constants.drive.kP_left,
+    Constants.drive.kI_left,
+    Constants.drive.kD_left
+  );
+
+  public final PIDController rightPID = new PIDController(
+    Constants.drive.kP_right,
+    Constants.drive.kI_right,
+    Constants.drive.kD_right
   );
 
   public DriveSubsystem() {
