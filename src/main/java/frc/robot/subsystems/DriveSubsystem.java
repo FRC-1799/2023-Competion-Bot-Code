@@ -1,9 +1,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -26,6 +31,17 @@ public class DriveSubsystem extends SubsystemBase {
   RelativeEncoder[] rightEncoders = new RelativeEncoder[3];
 
   final DifferentialDrive m_RobotDrive;
+  private final AHRS gyro = new AHRS();
+
+  DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
+    Constants.drive.trackWidthMeters
+  );
+
+  DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
+    gyro.getRotation2d(), 
+    getLeftDistance(),
+    getRightDistance()
+  );
 
   public DriveSubsystem() {
     //leftMotors.setInverted(true);
@@ -41,35 +57,27 @@ public class DriveSubsystem extends SubsystemBase {
       rightEncoders[i] = rightMotors[i].getEncoder();
     }
 
+    gyro.calibrate();
+
     addChild("Drive", m_RobotDrive);
+    addChild("Gyro", gyro);
+  }
+
+  public Pose2d getPose(){
+    return odometry.getPoseMeters();
   }
 
   /**
    * @return the average position of the left encoders
    */
-  public double getAveragePositionLeft(){
-    double tmp = 0;
-    for(RelativeEncoder e : leftEncoders){
-      tmp+= e.getPosition();
-    }
-    return tmp;
+  public double getLeftDistance(){
+    return leftEncoders[0].getPosition();
   }
   /**
    * @return the average position of the right encoders
    */
-  public double getAveragePositionRight(){
-    double tmp = 0;
-    for(RelativeEncoder e : rightEncoders){
-      tmp+= e.getPosition();
-    }
-    return tmp;
-  }
-
-  /**
-   * @return the average position of all encoders
-   */
-  public double getAveragePosition(){
-    return (getAveragePositionLeft() + getAveragePositionRight()) /2;
+  public double getRightDistance(){
+    return rightEncoders[0].getPosition();
   }
 
   public void resetEncoders(){
