@@ -27,10 +27,23 @@ public class DriveSubsystem extends SubsystemBase {
     new CANSparkMax(Constants.drive.rf, MotorType.kBrushless)
   };
 
-  RelativeEncoder[] leftEncoders = new RelativeEncoder[3];
-  RelativeEncoder[] rightEncoders = new RelativeEncoder[3];
+  RelativeEncoder[] leftEncoders = {
+    leftMotors[0].getEncoder(),
+    leftMotors[1].getEncoder(),
+    leftMotors[2].getEncoder()
+  };
+  RelativeEncoder[] rightEncoders = {
+    rightMotors[0].getEncoder(),
+    rightMotors[1].getEncoder(),
+    rightMotors[2].getEncoder()
+  };
 
-  final DifferentialDrive m_RobotDrive;
+  final DifferentialDrive m_RobotDrive = new DifferentialDrive(
+    new MotorControllerGroup(leftMotors),
+    new MotorControllerGroup(rightMotors)
+  );
+
+
   private final AHRS gyro = new AHRS();
 
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
@@ -44,19 +57,6 @@ public class DriveSubsystem extends SubsystemBase {
   );
 
   public DriveSubsystem() {
-    //leftMotors.setInverted(true);
-    //m_RobotDrive = new DifferentialDrive(rightMotors, leftMotors)
-    m_RobotDrive = new DifferentialDrive(
-      new MotorControllerGroup(leftMotors),
-      new MotorControllerGroup(rightMotors)
-    );
-
-    //fill encoder array
-    for(int i=0;i<rightMotors.length;i++){
-      leftEncoders[i] = leftMotors[i].getEncoder();
-      rightEncoders[i] = rightMotors[i].getEncoder();
-    }
-
     gyro.calibrate();
 
     addChild("Drive", m_RobotDrive);
@@ -65,6 +65,14 @@ public class DriveSubsystem extends SubsystemBase {
 
   public Pose2d getPose(){
     return odometry.getPoseMeters();
+  }
+
+  public void updateOdometry(){
+    odometry.update(
+      gyro.getRotation2d(),
+      getLeftDistance(),
+      getRightDistance()
+    );
   }
 
   /**
