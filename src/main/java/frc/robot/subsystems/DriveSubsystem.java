@@ -46,11 +46,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   private final AHRS gyro = new AHRS();
 
-  DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
+  public DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
     Constants.drive.trackWidthMeters
   );
 
-  DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
+  public DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
     gyro.getRotation2d(), 
     getLeftDistance(),
     getRightDistance()
@@ -100,17 +100,18 @@ public class DriveSubsystem extends SubsystemBase {
     return rightEncoders[0].getPosition();
   }
 
-  public void resetEncoders(){
-    for(RelativeEncoder e : leftEncoders){
-      e.setPosition(0);
-    }
-    for(RelativeEncoder e : rightEncoders){
-      e.setPosition(0);
-    }
+  public void drive(double ySpeed, double rotateValue) {
+    m_RobotDrive.arcadeDrive(ySpeed, rotateValue);
   }
 
+  public void tankDrive(double leftSpeed, double rightSpeed) {
+    m_RobotDrive.tankDrive(
+      leftSpeed,
+      rightSpeed
+    );
+  }
 
-  public void drive(final double ySpeed, final double rotateValue) {
-    m_RobotDrive.arcadeDrive(ySpeed, rotateValue);
+  public void periodic(){
+    updateOdometry();
   }
 }
