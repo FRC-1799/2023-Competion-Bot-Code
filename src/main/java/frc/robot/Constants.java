@@ -40,6 +40,13 @@ public final class Constants {
 
         public static final double trackWidthMeters = 0.5;
 
+        public static final double kP_left = 0.12;
+        public static final double kI_left = 0;
+        public static final double kD_left = 0;
+
+        public static final double kP_right = 0.12;
+        public static final double kI_right = 0;
+        public static final double kD_right = 0;
         
     }
 
