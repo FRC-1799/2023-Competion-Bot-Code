@@ -23,11 +23,11 @@ public class RobotContainer {
 
   final LimelightSubsystem limeLight = new LimelightSubsystem();
   final PneumaticsSubsytem pneumatics = new PneumaticsSubsytem();
-  final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  final Gyro gyro = new Gyro();
+  final DriveSubsystem m_driveSubsystem = new DriveSubsystem(gyro);
   final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem(pneumatics);
   final Bucket m_bucketSubsystem = new Bucket(pneumatics);
   final ToggleCompressor toggleCompressor = new ToggleCompressor(pneumatics);
-  final Gyro gyro = new Gyro();
 
   final LimelightCommand limelightCommand = new LimelightCommand(limeLight);
   final IntakeCommand runIntake = new IntakeCommand(m_intakeSubsystem, Constants.intake.fwdSpeed);
