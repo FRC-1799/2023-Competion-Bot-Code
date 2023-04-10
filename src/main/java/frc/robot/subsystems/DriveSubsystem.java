@@ -3,18 +3,20 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
-import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class DriveSubsystem extends SubsystemBase {
+
+  public final Gyro gyro;
 
   final CANSparkMax[] leftMotors = {
     new CANSparkMax(Constants.drive.lt, MotorType.kBrushless),
@@ -44,14 +46,12 @@ public class DriveSubsystem extends SubsystemBase {
     new MotorControllerGroup(rightMotors)
   );
 
-  private final AHRS gyro = new AHRS();
-
   public DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
     Constants.drive.trackWidthMeters
   );
 
   public DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
-    gyro.getRotation2d(), 
+    new Rotation2d(), 
     getLeftDistance(),
     getRightDistance()
   );
@@ -68,20 +68,29 @@ public class DriveSubsystem extends SubsystemBase {
     Constants.drive.kD_right
   );
 
-  public DriveSubsystem() {
-    gyro.calibrate();
-
+  public DriveSubsystem(Gyro gyro) {
+    this.gyro = gyro;
     addChild("Drive", m_RobotDrive);
-    addChild("Gyro", gyro);
+
   }
 
   public Pose2d getPose(){
     return odometry.getPoseMeters();
   }
 
+
+  public void resetOdometry(Pose2d pose){
+    odometry.resetPosition(
+      gyro.getHeading(),
+      getLeftDistance(),
+      getRightDistance(),
+      pose
+    );
+  }
+
   public void updateOdometry(){
     odometry.update(
-      gyro.getRotation2d(),
+      gyro.getHeading(),
       getLeftDistance(),
       getRightDistance()
     );
