@@ -120,6 +120,13 @@ public class DriveSubsystem extends SubsystemBase {
     );
   }
 
+  public void tankDriveVolts(double leftSpeed, double rightSpeed) {
+    m_RobotDrive.tankDrive(
+      leftSpeed/12,
+      rightSpeed/12
+    );
+  }
+
   public void periodic(){
     updateOdometry();
   }

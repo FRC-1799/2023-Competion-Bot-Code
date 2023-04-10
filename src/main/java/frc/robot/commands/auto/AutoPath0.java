@@ -21,7 +21,7 @@ public class AutoPath0 extends PPRamseteCommand {
       drive::getPose,
       new RamseteController(),
       drive.kinematics, 
-      drive::tankDrive,
+      drive::tankDriveVolts,
       drive
     );
 
