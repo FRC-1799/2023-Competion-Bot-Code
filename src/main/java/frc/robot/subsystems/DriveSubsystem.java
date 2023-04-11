@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
@@ -56,22 +55,19 @@ public class DriveSubsystem extends SubsystemBase {
     getRightDistance()
   );
 
-  public final PIDController leftPID = new PIDController(
-    Constants.drive.kP_left,
-    Constants.drive.kI_left,
-    Constants.drive.kD_left
-  );
-
-  public final PIDController rightPID = new PIDController(
-    Constants.drive.kP_right,
-    Constants.drive.kI_right,
-    Constants.drive.kD_right
-  );
-
   public DriveSubsystem(Gyro gyro) {
+
+    for(RelativeEncoder e : leftEncoders){
+      e.setPositionConversionFactor(Constants.drive.encoderDistancePerPulse);
+      e.setVelocityConversionFactor(Constants.drive.encoderDistancePerPulse);
+    }
+    for(RelativeEncoder e : rightEncoders){
+       e.setPositionConversionFactor(Constants.drive.encoderDistancePerPulse);
+       e.setVelocityConversionFactor(Constants.drive.encoderDistancePerPulse);
+    }
+
     this.gyro = gyro;
     addChild("Drive", m_RobotDrive);
-
   }
 
   public Pose2d getPose(){

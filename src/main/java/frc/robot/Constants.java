@@ -38,15 +38,16 @@ public final class Constants {
         public static final double rotationSpeedRatio= 0.6;
         public static final double driveSpeedRatio= 1;
 
-        public static final double trackWidthMeters = 0.5;
-
-        public static final double kP_left = 0.12;
-        public static final double kI_left = 0;
-        public static final double kD_left = 0;
-
-        public static final double kP_right = 0.12;
-        public static final double kI_right = 0;
-        public static final double kD_right = 0;
+        public static final double bodyWidthMeters = 0.4572;
+        public static final double bodyLengthMeters = 0.81915;
+        public static final double trackWidthMeters = 0.3556;
+        
+        public static final int encoderCPR = 1024;
+        public static final double wheelDiameterMeters = 0.1524;
+        public static final double gearRatio = 10.75;
+        public static final double encoderDistancePerPulse = 
+            // distancePerPulse is in meters/pulse
+            ((wheelDiameterMeters * Math.PI) / (double) encoderCPR) /  gearRatio;
         
     }
 
