@@ -6,13 +6,13 @@ import com.pathplanner.lib.commands.PPRamseteCommand;
 
 import edu.wpi.first.math.controller.RamseteController;
 
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.DriveBase;
 
 public class AutoPath0 extends PPRamseteCommand {
   
 
 
-  public AutoPath0(DriveSubsystem drive) {
+  public AutoPath0(DriveBase drive) {
     super(
       PathPlanner.loadPath(
   "curve-test",

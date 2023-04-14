@@ -7,11 +7,11 @@ import com.pathplanner.lib.auto.RamseteAutoBuilder;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.DriveBase;
 
 
 public class AutoTest extends RamseteAutoBuilder{
-  public AutoTest(DriveSubsystem drive) {
+  public AutoTest(DriveBase drive) {
     super(
       drive::getPose, 
       drive::resetOdometry,

@@ -13,7 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-public class DriveSubsystem extends SubsystemBase {
+public class DriveBase extends SubsystemBase {
 
   public final Gyro gyro;
 
@@ -55,7 +55,7 @@ public class DriveSubsystem extends SubsystemBase {
     getRightDistance()
   );
 
-  public DriveSubsystem(Gyro gyro) {
+  public DriveBase(Gyro gyro) {
 
     for(RelativeEncoder e : leftEncoders){
       e.setPositionConversionFactor(Constants.drive.encoderDistancePerPulse);
