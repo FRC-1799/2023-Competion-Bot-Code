@@ -4,11 +4,11 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Constants;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.DriveBase;
 
 public class DriveStraight extends RunCommand {
 
-  private final DriveSubsystem drive;
+  private final DriveBase drive;
 
   static PIDController controller = new PIDController(
     Constants.drive.driveForwardsPID.kP,
@@ -16,7 +16,7 @@ public class DriveStraight extends RunCommand {
     Constants.drive.driveForwardsPID.kD
   );
 
-  public DriveStraight(DriveSubsystem driveSubsystem, double distance ) {
+  public DriveStraight(DriveBase driveSubsystem, double distance ) {
     super(
       ()->{
         driveSubsystem.drive(

@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-public class DriveSubsystem extends SubsystemBase {
+public class DriveBase extends SubsystemBase {
 
   final CANSparkMax[] leftMotors = {
     new CANSparkMax(Constants.drive.lt, MotorType.kBrushless),
@@ -27,7 +27,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   final DifferentialDrive m_RobotDrive;
 
-  public DriveSubsystem() {
+  public DriveBase() {
     //leftMotors.setInverted(true);
     //m_RobotDrive = new DifferentialDrive(rightMotors, leftMotors)
     m_RobotDrive = new DifferentialDrive(
