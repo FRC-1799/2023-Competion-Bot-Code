@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -84,5 +86,13 @@ public class DriveBase extends SubsystemBase {
 
   public void drive(final double ySpeed, final double rotateValue) {
     m_RobotDrive.arcadeDrive(ySpeed, rotateValue);
+  }
+
+  public void log(){
+    SmartDashboard.putNumberArray("db encoder position", new double[]{getAveragePosition()});
+  }
+
+  public void periodic(){
+    log();
   }
 }

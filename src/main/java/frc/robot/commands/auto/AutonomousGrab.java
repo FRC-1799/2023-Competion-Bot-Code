@@ -23,6 +23,9 @@ public class AutonomousGrab extends SequentialCommandGroup {
    */
   public AutonomousGrab(DriveBase drive, Intake intake, Bucket bucket) {
     super(
+      new InstantCommand(()->{
+        drive.resetEncoders();
+      }, drive),
       // dump milk crate
       new InstantCommand(
         () ->bucket.set(DoubleSolenoid.Value.kReverse),
