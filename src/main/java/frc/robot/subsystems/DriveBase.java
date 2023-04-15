@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -16,6 +17,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class DriveBase extends SubsystemBase {
 
   public final Gyro gyro;
+
+  double[] distances = new double[2];
 
   final CANSparkMax[] leftMotors = {
     new CANSparkMax(Constants.drive.lt, MotorType.kBrushless),
@@ -105,6 +108,19 @@ public class DriveBase extends SubsystemBase {
     return rightEncoders[0].getPosition();
   }
 
+  public double getAvgDistance(){
+    return (getLeftDistance() + getRightDistance())/2;
+  }
+
+  public void resetEncoders(){
+    for(RelativeEncoder e : leftEncoders){
+      e.setPosition(0);
+    }
+    for(RelativeEncoder e : rightEncoders){
+      e.setPosition(0);
+    }
+  }
+
   public void drive(double ySpeed, double rotateValue) {
     m_RobotDrive.arcadeDrive(ySpeed, rotateValue);
   }
@@ -122,8 +138,14 @@ public class DriveBase extends SubsystemBase {
       rightSpeed/12
     );
   }
+  public void log(){
+    distances[0] = getLeftDistance();
+    distances[1] = getRightDistance();
+    SmartDashboard.putNumberArray("db encoder position", distances);
+  }
 
   public void periodic(){
     updateOdometry();
+    log();
   }
 }

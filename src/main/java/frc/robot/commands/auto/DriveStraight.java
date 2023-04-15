@@ -1,34 +1,48 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveBase;
 
+public class DriveStraight extends RunCommand {
 
-public class DriveStraight extends WaitCommand {
-  private final DriveBase driveSubsystem;
+  private final DriveBase drive;
 
-  double speed = 0;
+  static PIDController controller = new PIDController(
+    Constants.drive.driveForwardsPID.kP,
+    Constants.drive.driveForwardsPID.kI,
+    Constants.drive.driveForwardsPID.kD
+  );
 
-  public DriveStraight(DriveBase driveSubsystem, double time, double speed) {
-    super(time);
-    this.driveSubsystem = driveSubsystem;
-    this.speed = MathUtil.clamp(speed, -1, 1);
-    addRequirements(this.driveSubsystem);
-
+  public DriveStraight(DriveBase driveSubsystem, double distance ) {
+    super(
+      ()->{
+        driveSubsystem.drive(
+          MathUtil.clamp(
+            controller.calculate(driveSubsystem.getAvgDistance()),
+            Constants.drive.driveForwardsPID.outputMin,
+            Constants.drive.driveForwardsPID.outputMax
+          )
+          ,0);
+      }
+    );
+    this.drive = driveSubsystem;
+    
+    controller.setSetpoint(distance);
+    controller.setTolerance(
+      Constants.drive.driveForwardsPID.positionTolerance,
+      Constants.drive.driveForwardsPID.velocityTolerance
+    );
+    addRequirements(driveSubsystem);
   }
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  public void execute() {
-      super.execute();
-      driveSubsystem.drive(- speed, 0);
+  public void initialize() {
+    drive.resetEncoders();
   }
 
-  @Override
-  public void end(boolean interupted){
-    super.end(interupted);
-    driveSubsystem.drive(0,0);
+  public boolean isFinished() {
+    return controller.atSetpoint();
   }
 }

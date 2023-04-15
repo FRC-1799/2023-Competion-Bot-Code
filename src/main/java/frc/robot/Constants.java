@@ -48,6 +48,28 @@ public final class Constants {
         public static final double encoderDistancePerPulse = 
             // distancePerPulse is in meters/pulse
             ((wheelDiameterMeters * Math.PI) / (double) encoderCPR) /  gearRatio;
+
+        public static final class driveForwardsPID{
+            public static final double kP = 0.1;
+            public static final double kI = 0.0;
+            public static final double kD = 0.0;
+            public static final double kF = 0.0;
+            public static final double outputMin = -1;
+            public static final double outputMax = 1;
+
+
+            public static final double positionTolerance = 1;
+            public static final double velocityTolerance = 1;
+
+        }
+        public static final class rotateToPID{
+            public static final double kP = 0.0;
+            public static final double kI = 0.0;
+            public static final double kD = 0.0;
+            public static final double kF = 0.0;
+            public static final double outputMin = -1;
+            public static final double outputMax = 1;
+        }
         
     }
 
@@ -75,8 +97,22 @@ public final class Constants {
     }
 
     public static final class auto{
-        public static final double fwdSpeed = -0.6;
-        public static final double revSpeed = 0.4;
+
+        public static final class grab{
+            public static final double fwdDistance1 = 10;
+            public static final double fwdDistance2 = 5;
+            public static final double revDistance = -5;
+        }
+
+        public static final class balanceNoMoible{
+            public static final double fwdDistance  = 5;
+        }
+
+        public static final class balanceWithMoible{
+            public static final double fwdDistance  = 10;
+            public static final double revDistance  = -5;
+        }
+
 
         public static final class balancePID{
             public static final double kP = 0.12;
