@@ -47,7 +47,7 @@ public final class Constants {
         public static final double gearRatio = 10.75;
         public static final double encoderDistancePerPulse = 
             // distancePerPulse is in meters/pulse
-            ((wheelDiameterMeters * Math.PI) / (double) encoderCPR) /  gearRatio;
+            ((wheelDiameterMeters * Math.PI) * (double) encoderCPR) /  gearRatio;
 
 
         public static final double leftSpeedMultiplier = 1;
