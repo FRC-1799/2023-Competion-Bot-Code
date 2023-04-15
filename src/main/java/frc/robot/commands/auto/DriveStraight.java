@@ -19,13 +19,15 @@ public class DriveStraight extends RunCommand {
   public DriveStraight(DriveBase driveSubsystem, double distance ) {
     super(
       ()->{
-        driveSubsystem.drive(
-          MathUtil.clamp(
-            controller.calculate(driveSubsystem.getAvgDistance()),
-            Constants.drive.driveForwardsPID.outputMin,
-            Constants.drive.driveForwardsPID.outputMax
-          )
-          ,0);
+        double speed = MathUtil.clamp(
+          controller.calculate(driveSubsystem.getAvgDistance()),
+          Constants.drive.driveForwardsPID.outputMin,
+          Constants.drive.driveForwardsPID.outputMax
+        );
+        driveSubsystem.tankDrive(
+          speed*Constants.drive.leftSpeedMultiplier,
+          speed*Constants.drive.rightSpeedMultiplier
+        );
       }
     );
     this.drive = driveSubsystem;

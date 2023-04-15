@@ -49,6 +49,10 @@ public final class Constants {
             // distancePerPulse is in meters/pulse
             ((wheelDiameterMeters * Math.PI) / (double) encoderCPR) /  gearRatio;
 
+
+        public static final double leftSpeedMultiplier = 1;
+        public static final double rightSpeedMultiplier = 1;
+
         public static final class driveForwardsPID{
             public static final double kP = 0.1;
             public static final double kI = 0.0;
