@@ -89,7 +89,7 @@ public class DriveBase extends SubsystemBase {
   }
 
   public void log(){
-    SmartDashboard.putNumberArray("db encoder position", new double[]{getAveragePosition()});
+    SmartDashboard.putNumberArray("db encoder position", new double[]{getAveragePositionLeft(),getAveragePositionRight()});
   }
 
   public void periodic(){
