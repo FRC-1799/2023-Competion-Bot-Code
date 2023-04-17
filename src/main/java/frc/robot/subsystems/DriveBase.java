@@ -15,6 +15,18 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class DriveBase extends SubsystemBase {
+ // new CANSparkMax(Constats.drive.lt, MotorType.kBrushless);
+
+// left side
+ public final CANSparkMax sparkMaxlt = new CANSparkMax(Constants.drive.lt, MotorType.kBrushless);
+ public final CANSparkMax sparkMaxlr = new CANSparkMax(Constants.drive.lr, MotorType.kBrushless);
+ public final CANSparkMax sparkMaxlf = new CANSparkMax(Constants.drive.lf, MotorType.kBrushless);
+
+//right side
+public final CANSparkMax sparkMaxrt = new CANSparkMax(Constants.drive.rt, MotorType.kBrushless);
+public final CANSparkMax sparkMaxrr = new CANSparkMax(Constants.drive.rr, MotorType.kBrushless);
+public final CANSparkMax sparkMaxrf = new CANSparkMax(Constants.drive.rf, MotorType.kBrushless);
+
 
   public final Gyro gyro;
 
@@ -31,6 +43,7 @@ public class DriveBase extends SubsystemBase {
     new CANSparkMax(Constants.drive.rr, MotorType.kBrushless),
     new CANSparkMax(Constants.drive.rf, MotorType.kBrushless)
   };
+
 
   RelativeEncoder[] leftEncoders = {
     leftMotors[0].getEncoder(),
@@ -67,6 +80,14 @@ public class DriveBase extends SubsystemBase {
     for(RelativeEncoder e : rightEncoders){
        e.setPositionConversionFactor(Constants.drive.encoderDistancePerPulse);
        e.setVelocityConversionFactor(Constants.drive.encoderDistancePerPulse);
+    }
+
+    for(CANSparkMax s : leftMotors){
+      s.setOpenLoopRampRate(Constants.drive.rampspeed);
+    }
+    //right voltage ramping
+    for(CANSparkMax s : rightMotors){
+      s.setOpenLoopRampRate(Constants.drive.rampspeed);
     }
 
     this.gyro = gyro;

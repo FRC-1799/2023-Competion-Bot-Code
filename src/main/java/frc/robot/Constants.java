@@ -34,9 +34,6 @@ public final class Constants {
         public static final int rf = 7;
         public static final int rt = 5;
         public static final int rr = 8;
-        
-        public static final double rotationSpeedRatio= 0.6;
-        public static final double driveSpeedRatio= 1;
 
         public static final double bodyWidthMeters = 0.4572;
         public static final double bodyLengthMeters = 0.81915;
@@ -75,6 +72,10 @@ public final class Constants {
             public static final double outputMax = 1;
         }
         
+        public static double rotationSpeedRatio= .6;
+        public static final double driveSpeedRatio= 1;
+
+        public static double rampspeed= .25;
     }
 
     // Changing Solenoid Values idk 50/50 this'll work
@@ -96,8 +97,8 @@ public final class Constants {
         public static final int motor2 = 11;
         
         //reversed
-        public static final double fwdSpeed = 0.8;
-        public static final double revSpeed = -1;
+        public static final double fwdSpeed = 1;
+        public static final double revSpeed = -.5;
     }
 
     public static final class auto{
