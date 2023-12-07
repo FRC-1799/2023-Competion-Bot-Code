@@ -15,6 +15,9 @@ public class Pneumatics extends SubsystemBase{
 
   public Pneumatics(){
     compressor.enableDigital();
+    addChild("compressor", compressor);
+    setName("Pneumatics");
+    SmartDashboard.putBoolean("compressor enabled", compressor.isEnabled());
   }
 
   public Compressor getCompressor(){
@@ -24,13 +27,10 @@ public class Pneumatics extends SubsystemBase{
   public void toggleCompressor(){
     if(compressor.isEnabled()){
       compressor.disable();
-      // display Compressor Data
-      SmartDashboard.putData(compressor);
-
     }else{
       compressor.enableDigital();
-      SmartDashboard.putData(compressor);
     }
+    SmartDashboard.putBoolean("compressor enabled", compressor.isEnabled());
   }
 
   public DoubleSolenoid makeDoubleSolenoid(int fwdPort,int revPort){
