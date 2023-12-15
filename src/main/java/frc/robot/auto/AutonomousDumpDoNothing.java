@@ -1,5 +1,5 @@
 
-package frc.robot.commands.auto.AutoRoutines;
+package frc.robot.auto;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Bucket;
 import frc.robot.subsystems.DriveBase;
 import frc.robot.subsystems.Intake;
+
 //simport frc.robot.subsystems.Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 

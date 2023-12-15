@@ -1,14 +1,14 @@
-package frc.robot.commands.auto;
+package frc.robot.auto;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.auto.*;
 import frc.robot.subsystems.Bucket;
 import frc.robot.subsystems.DriveBase;
 import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.Intake;
-import frc.robot.commands.auto.AutoRoutines.*;
 
 public class AutoSelector {
 
